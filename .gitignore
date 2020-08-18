@@ -1,7 +1,7 @@
 .idea
-chroot
-chroot.*
+/chroot
+/chroot.*
 cache
-binary
+/binary
 .build
 .lock
