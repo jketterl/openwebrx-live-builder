@@ -43,7 +43,7 @@ LB_BUILD_WITH_CHROOT="true"
 
 # $LB_DEBIAN_INSTALLER: set debian-installer
 # (Default: false)
-LB_DEBIAN_INSTALLER="false"
+LB_DEBIAN_INSTALLER="true"
 
 # $LB_DEBIAN_INSTALLER_DISTRIBUTION: set debian-installer suite
 # (Default: empty)
@@ -63,7 +63,7 @@ LB_GRUB_SPLASH=""
 
 # $LB_HDD_LABEL: set hdd label
 # (Default: DEBIAN_LIVE)
-LB_HDD_LABEL="DEBIAN_LIVE"
+LB_HDD_LABEL="OPENWEBRX"
 
 # $LB_HDD_SIZE: set hdd filesystem size
 # (Default: auto)

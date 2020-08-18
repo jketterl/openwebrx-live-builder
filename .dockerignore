@@ -1,0 +1,9 @@
+.idea
+/chroot
+/chroot.*
+cache
+/binary
+.build
+.lock
+
+*.iso
