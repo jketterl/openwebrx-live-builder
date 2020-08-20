@@ -1,0 +1,42 @@
+#!/bin/sh
+set -e
+
+Cmdline ()
+{
+    # Reading kernel command line
+    for _PARAMETER in ${LIVE_CONFIG_CMDLINE}
+    do
+        case "${_PARAMETER}" in
+            live-config.username=*|username=*)
+                LIVE_USERNAME="${_PARAMETER#*username=}"
+                ;;
+        esac
+    done
+}
+
+Init ()
+{
+    :
+}
+
+Config ()
+{
+    cat > /usr/share/applications/OpenWebRX.desktop << EOF
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=OpenWebRX
+Exec=/usr/bin/firefox http://localhost:8073/
+EOF
+    chmod +x /usr/share/applications/OpenWebRX.desktop
+
+    mkdir -p /home/${LIVE_USERNAME}/.config/autostart
+    ln -s /usr/share/applications/OpenWebRX.desktop /home/${LIVE_USERNAME}/.config/autostart/
+
+    mkdir -p /home/${LIVE_USERNAME}/Desktop
+    ln -s /usr/share/applications/OpenWebRX.desktop /home/${LIVE_USERNAME}/Desktop
+}
+
+Cmdline
+Init
+Config
