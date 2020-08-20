@@ -10,7 +10,7 @@ LB_APT_INDICES="true"
 
 # $LB_BOOTAPPEND_LIVE: set boot parameters
 # (Default: empty)
-LB_BOOTAPPEND_LIVE="boot=live components quiet splash hostname=openwebrx xorg-resolution=1920x1080 nottyautologin"
+LB_BOOTAPPEND_LIVE="boot=live components quiet splash hostname=openwebrx xorg-resolution=1920x1200 nottyautologin"
 
 # $LB_BOOTAPPEND_INSTALL: set boot parameters
 # (Default: empty)
