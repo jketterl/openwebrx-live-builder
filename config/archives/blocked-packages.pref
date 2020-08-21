@@ -1,0 +1,7 @@
+Package: libreoffice*
+Pin: Version *
+Pin-Priority: -1
+
+Package: gimp*
+Pin: Version *
+Pin-Priority: -1
