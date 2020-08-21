@@ -23,18 +23,26 @@ Config ()
 {
     cat > /usr/share/applications/OpenWebRX.desktop << EOF
 [Desktop Entry]
-Version=1.0
 Type=Application
 Name=OpenWebRX
 Exec=/usr/bin/firefox -url http://openwebrx:8073/
+Categories=HamRadio
 EOF
     chmod +x /usr/share/applications/OpenWebRX.desktop
 
     mkdir -p /home/${LIVE_USERNAME}/.config/autostart
+    chown ${LIVE_USERNAME}. /home/${LIVE_USERNAME}/.config/autostart
     ln -s /usr/share/applications/OpenWebRX.desktop /home/${LIVE_USERNAME}/.config/autostart/
 
     mkdir -p /home/${LIVE_USERNAME}/Desktop
-    ln -s /usr/share/applications/OpenWebRX.desktop /home/${LIVE_USERNAME}/Desktop
+    chown ${LIVE_USERNAME}. /home/${LIVE_USERNAME}/Desktop
+    cat > /home/${LIVE_USERNAME}/Desktop/OpenWebRX.desktop << EOF
+[Desktop Entry]
+Type=Link
+Name=OpenWebRX
+URL=/usr/share/applications/OpenWebRX.desktop
+EOF
+    chown ${LIVE_USERNAME}. /home/${LIVE_USERNAME}/Desktop/OpenWebRX.desktop
 }
 
 Cmdline
