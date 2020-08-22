@@ -1,0 +1,3 @@
+Package: libreoffice* gimp* libgimp* clipit firefox-esr*
+Pin: Version *
+Pin-Priority: -1
