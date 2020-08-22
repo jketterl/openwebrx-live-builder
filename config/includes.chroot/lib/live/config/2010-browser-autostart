@@ -25,7 +25,7 @@ Config ()
 [Desktop Entry]
 Type=Application
 Name=OpenWebRX
-Exec=/usr/bin/firefox -url http://openwebrx:8073/
+Exec=/usr/bin/firefox --profile /home/${LIVE_USERNAME}/.mozilla/firefox/openwebrx.profile -url http://openwebrx:8073/
 Categories=HamRadio
 EOF
     chmod +x /usr/share/applications/OpenWebRX.desktop
