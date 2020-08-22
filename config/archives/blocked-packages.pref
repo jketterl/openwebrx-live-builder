@@ -5,3 +5,11 @@ Pin-Priority: -1
 Package: gimp*
 Pin: Version *
 Pin-Priority: -1
+
+Package: libgimp*
+Pin: Version *
+Pin-Priority: -1
+
+Package: clipit
+Pin: Version *
+Pin-Priority: -1
