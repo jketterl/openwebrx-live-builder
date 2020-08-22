@@ -24,11 +24,19 @@ Config ()
     PROFILE_DIR=/home/${LIVE_USERNAME}/.mozilla/firefox/openwebrx.profile/
     mkdir -p ${PROFILE_DIR}
     cat > ${PROFILE_DIR}/xulstore.json << EOF
-{"chrome://browser/content/browser.xul":{"main-window":{"screenX":"0","screenY":"0","width":"1280","height":"1040","sizemode":"maximized"}}}
+{"chrome://browser/content/browser.xul":{"main-window":{"screenX":"0","screenY":"0","width":"1280","height":"1040","sizemode":"maximized"}},"chrome://browser/content/browser.xhtml":{"main-window":{"screenX":"0","screenY":"0","width":"1280","height":"1040","sizemode":"maximized"}}}
 EOF
 
     cat > ${PROFILE_DIR}/prefs.js << EOF
-user_pref("browser.startup.homepage", "http://localhost:8073/");
+user_pref("browser.startup.homepage", "http://openwebrx:8073/");
+EOF
+
+    TIMESTAMP="$(date +"%s")000"
+    sqlite3 ${PROFILE_DIR}/permissions.sqlite << EOF
+CREATE TABLE moz_hosts ( id INTEGER PRIMARY KEY,host TEXT,type TEXT,permission INTEGER,expireType INTEGER,expireTime INTEGER,modificationTime INTEGER,appId INTEGER,isInBrowserElement INTEGER);
+CREATE TABLE moz_perms ( id INTEGER PRIMARY KEY,origin TEXT,type TEXT,permission INTEGER,expireType INTEGER,expireTime INTEGER,modificationTime INTEGER);
+INSERT INTO "moz_perms" VALUES(1,'http://openwebrx:8073','storageAccessAPI',1,2,${TIMESTAMP},${TIMESTAMP});
+INSERT INTO "moz_perms" VALUES(2,'http://openwebrx:8073','autoplay-media',1,0,0,${TIMESTAMP});
 EOF
 
     chown -R ${LIVE_USERNAME}. /home/${LIVE_USERNAME}/.mozilla
