@@ -31,18 +31,18 @@ EOF
     chmod +x /usr/share/applications/OpenWebRX.desktop
 
     mkdir -p /home/${LIVE_USERNAME}/.config/autostart
-    chown ${LIVE_USERNAME}. /home/${LIVE_USERNAME}/.config/autostart
     ln -s /usr/share/applications/OpenWebRX.desktop /home/${LIVE_USERNAME}/.config/autostart/
+    chown -R ${LIVE_USERNAME}. /home/${LIVE_USERNAME}/.config
 
     mkdir -p /home/${LIVE_USERNAME}/Desktop
-    chown ${LIVE_USERNAME}. /home/${LIVE_USERNAME}/Desktop
     cat > /home/${LIVE_USERNAME}/Desktop/OpenWebRX.desktop << EOF
 [Desktop Entry]
 Type=Link
 Name=OpenWebRX
 URL=/usr/share/applications/OpenWebRX.desktop
 EOF
-    chown ${LIVE_USERNAME}. /home/${LIVE_USERNAME}/Desktop/OpenWebRX.desktop
+    chmod +x /home/${LIVE_USERNAME}/Desktop/OpenWebRX.desktop
+    chown -R ${LIVE_USERNAME}. /home/${LIVE_USERNAME}/Desktop
 }
 
 Cmdline
