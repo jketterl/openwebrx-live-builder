@@ -30,6 +30,7 @@ Config ()
 [Desktop Entry]
 Type=Link
 Name=OpenWebRX
+Icon=openwebrx
 URL=/usr/share/applications/openwebrx.desktop
 EOF
     chmod +x /home/${LIVE_USERNAME}/Desktop/openwebrx.desktop
