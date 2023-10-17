@@ -1,0 +1,9 @@
+#!/bin/sh
+set -e
+
+mkdir -p /target/usr/share/keyrings
+cp /usr/share/keyrings/openwebrx.gpg /target/usr/share/keyrings
+
+mkdir -p /target/etc/apt/sources.list.d
+echo 'deb [signed-by=/usr/share/keyrings/openwebrx.gpg] https://repo.openwebrx.de/debian/ bookworm main
+deb [signed-by=/usr/share/keyrings/openwebrx.gpg] https://repo.openwebrx.de/debian/ experimental main' > /target/etc/apt/sources.list.d/openwebrx.list

@@ -50,7 +50,7 @@ LB_ZSYNC="true"
 LB_BUILD_WITH_CHROOT="true"
 
 # Set debian-installer
-LB_DEBIAN_INSTALLER="none"
+LB_DEBIAN_INSTALLER="cdrom"
 
 # Set debian-installer suite
 LB_DEBIAN_INSTALLER_DISTRIBUTION="bookworm"
