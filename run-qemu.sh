@@ -12,6 +12,7 @@ qemu-system-x86_64 \
     -smp 2 \
     -m 4096 \
     -audio pa,model=hda \
+    -drive file=disk.img,if=ide,format=raw \
     -usb \
       -device qemu-xhci \
       -device usb-host,vendorid=0x0bda,productid=0x2838 \
