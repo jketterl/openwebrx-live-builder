@@ -1,0 +1,54 @@
+#!/bin/sh
+set -e
+
+Cmdline ()
+{
+    # Reading kernel command line
+    for _PARAMETER in ${LIVE_CONFIG_CMDLINE}
+    do
+        case "${_PARAMETER}" in
+            live-config.username=*|username=*)
+                LIVE_USERNAME="${_PARAMETER#*username=}"
+                ;;
+        esac
+    done
+}
+
+Init ()
+{
+    :
+}
+
+Config ()
+{
+    patch /usr/share/debian-installer-launcher/debian-installer.sh << EOF
+--- debian-installer.sh.orig    2023-10-18 12:59:25.967081805 +0000
++++ debian-installer.sh 2023-10-18 13:00:09.100833815 +0000
+@@ -16,5 +16,6 @@
+ # Launching debian-installer
+ in_image mount /run
+ in_image mkdir -p /run/lock
++in_image mkdir -p /run/systemd/journal
+ in_image /sbin/debian-installer-startup
+ in_image /sbin/debian-installer
+EOF
+
+    patch /usr/share/debian-installer-launcher/plugins/live << EOF
+--- live.orig   2023-10-18 19:39:32.801928635 +0000
++++ live        2023-10-18 19:40:16.315687592 +0000
+@@ -78,7 +78,7 @@
+        # Preseeding shutdown command
+        cat >> preseed.cfg << EOF
+ # Select udeb for installation to allow exiting the installer
+-d-i anna/choose_modules string di-utils-exit-installer apt-cdrom-udeb
++d-i anna/choose_modules string di-utils-exit-installer apt-cdrom-setup
+ # Ask question regardless from that it's preseeded above
+ d-i anna/choose_modules seen false
+ # Skip the exit timeout
+EOF
+
+}
+
+Cmdline
+Init
+Config
