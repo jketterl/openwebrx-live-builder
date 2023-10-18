@@ -1,0 +1,33 @@
+#!/bin/sh
+set -e
+
+Cmdline ()
+{
+    # Reading kernel command line
+    for _PARAMETER in ${LIVE_CONFIG_CMDLINE}
+    do
+        case "${_PARAMETER}" in
+            live-config.username=*|username=*)
+                LIVE_USERNAME="${_PARAMETER#*username=}"
+                ;;
+        esac
+    done
+}
+
+Init ()
+{
+    :
+}
+
+Config ()
+{
+    cat >> /etc/calamares/modules/users.conf << EOF
+hostname:
+  template: "openwebrx"
+EOF
+
+}
+
+Cmdline
+Init
+Config
