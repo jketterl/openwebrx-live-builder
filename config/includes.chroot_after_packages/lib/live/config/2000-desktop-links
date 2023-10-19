@@ -21,11 +21,14 @@ Init ()
 
 Config ()
 {
+    # set the system up to autostart a browser with openwebrx immediately
     mkdir -p /home/${LIVE_USERNAME}/.config/autostart
     ln -s /usr/share/applications/openwebrx.desktop /home/${LIVE_USERNAME}/.config/autostart/
     chown -R ${LIVE_USERNAME}. /home/${LIVE_USERNAME}/.config
 
     mkdir -p /home/${LIVE_USERNAME}/Desktop
+
+    # put openwebrx on the desktop
     cat > /home/${LIVE_USERNAME}/Desktop/openwebrx.desktop << EOF
 [Desktop Entry]
 Type=Link
@@ -33,7 +36,16 @@ Name=OpenWebRX
 Icon=openwebrx
 URL=/usr/share/applications/openwebrx.desktop
 EOF
-    chmod +x /home/${LIVE_USERNAME}/Desktop/openwebrx.desktop
+
+    # add an installer link to the desktop
+    cat > /home/${LIVE_USERNAME}/Desktop/debian-installer-launcher.desktop << EOF
+[Desktop Entry]
+Type=Link
+Name=Install Debian
+Icon=debian-installer-launcher
+URL=/usr/share/applications/debian-installer-launcher.desktop
+EOF
+
     chown -R ${LIVE_USERNAME}. /home/${LIVE_USERNAME}/Desktop
 }
 
