@@ -21,18 +21,32 @@ Init ()
 
 Config ()
 {
+    # this patch fixes two problems:
+    # - the syslog in the installer depends on the directory
+    #   /run/systemd/journal to be present, so we just fake it.
+    # - systemd does not respond to SIGTERM in the expected way, so the reboot
+    #   cannot be done in the way that the installer expects it.
+    #   luckyily, SIGINT does what we need, we just need to get it into the
+    #   right place.
     patch /usr/share/debian-installer-launcher/debian-installer.sh << EOF
 --- debian-installer.sh.orig    2023-10-18 12:59:25.967081805 +0000
 +++ debian-installer.sh 2023-10-18 13:00:09.100833815 +0000
-@@ -16,5 +16,6 @@
+@@ -16,5 +16,10 @@
  # Launching debian-installer
  in_image mount /run
  in_image mkdir -p /run/lock
 +in_image mkdir -p /run/systemd/journal
++rm /run/live/installer/sbin/reboot
++echo "#!bin/sh
++kill -s INT 1" > /run/live/installer/sbin/reboot
++chmod +x /run/live/installer/sbin/reboot
  in_image /sbin/debian-installer-startup
  in_image /sbin/debian-installer
 EOF
 
+    # this is weird... there's no package apt-cdrom-udeb.
+    # the installer needs the templates for package manager configuration, so
+    # we'll just assume a mix-up
     patch /usr/share/debian-installer-launcher/plugins/live << EOF
 --- live.orig   2023-10-18 19:39:32.801928635 +0000
 +++ live        2023-10-18 19:40:16.315687592 +0000
@@ -46,6 +60,20 @@ EOF
  d-i anna/choose_modules seen false
  # Skip the exit timeout
 EOF
+
+    # connman interferes with the debian installer network configuration.
+    # this makes sure it's stopped before the installation procedure.
+    # yes, this means that the live environment's network will go down.
+    cat >> /usr/share/debian-installer-launcher/hooks/disable-network << 'EOF'
+#!/bin/sh
+set -e
+case ${1} in
+  startup)
+    systemctl stop connman
+  ;;
+esac
+EOF
+    chmod +x /usr/share/debian-installer-launcher/hooks/disable-network
 
 }
 
