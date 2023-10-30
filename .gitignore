@@ -6,3 +6,4 @@ cache
 .build
 .lock
 *.iso
+.qemu-macaddr
