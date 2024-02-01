@@ -25,7 +25,7 @@ LB_LINUX_FLAVOURS_WITH_ARCH="amd64"
 LB_LINUX_PACKAGES="linux-image"
 
 # Enable security updates
-LB_SECURITY="true"
+LB_SECURITY="false"
 
 # Enable updates updates
 LB_UPDATES="false"
